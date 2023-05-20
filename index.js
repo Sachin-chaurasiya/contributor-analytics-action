@@ -16,12 +16,11 @@ async function run() {
       repo: repoName,
     });
 
-    // console.log('Contributors:');
-    // contributors.data.forEach((contributor) => {
-    //   console.log(`${contributor.login}: ${contributor.contributions}`);
-    // });
-
-    console.log({ octokit, owner, repoName, contributors });
+    console.log('Contributors:');
+    contributors.data.forEach((contributor) => {
+      console.log({ contributor });
+      console.log(`${contributor.login}: ${contributor.contributions}`);
+    });
   } catch (error) {
     console.error(error);
     process.exit(1);
