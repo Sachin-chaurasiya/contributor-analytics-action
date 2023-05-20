@@ -1,0 +1,7 @@
+name: Contributor Analytics
+description: Provides insights and analytics on contributors' activity.
+inputs: {}
+outputs: {}
+runs:
+  using: 'node12'
+  main: 'index.js'
