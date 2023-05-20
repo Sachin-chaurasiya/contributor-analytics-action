@@ -8058,16 +8058,18 @@ async function run() {
     const owner = repo.owner.login;
     const repoName = repo.name;
 
-    // Fetch contributors
-    const contributors = await octokit.repos.listContributors({
-      owner,
-      repo: repoName,
-    });
+    // // Fetch contributors
+    // const contributors = await octokit.repos.listContributors({
+    //   owner,
+    //   repo: repoName,
+    // });
 
-    console.log('Contributors:');
-    contributors.data.forEach((contributor) => {
-      console.log(`${contributor.login}: ${contributor.contributions}`);
-    });
+    // console.log('Contributors:');
+    // contributors.data.forEach((contributor) => {
+    //   console.log(`${contributor.login}: ${contributor.contributions}`);
+    // });
+
+    console.log({ octokit, owner, repoName });
   } catch (error) {
     console.error(error);
     process.exit(1);
