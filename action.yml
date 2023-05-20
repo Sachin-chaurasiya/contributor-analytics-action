@@ -3,7 +3,7 @@ description: Provides insights and analytics on contributors' activity.
 author: 'Sachin Chaurasiya <sachinchaurasiyachotey87@gmail.com>'
 
 branding:
-  icon: 'message-circle'
+  icon: 'book-open'
   color: 'blue'
 
 inputs: {}
