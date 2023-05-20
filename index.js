@@ -46,7 +46,7 @@ async function run() {
       });
       const codeCount = commits.data.length;
 
-      console.log(`${username}:`, { pullRequests, issues, commits });
+      console.log(`${username}:`);
       console.log(`Pull Requests: ${pullRequestCount}`);
       console.log(`Issues Opened: ${issueCount}`);
       console.log(`Code Contributions: ${codeCount}`);
