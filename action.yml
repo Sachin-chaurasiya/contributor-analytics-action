@@ -1,7 +1,13 @@
 name: Contributor Analytics
 description: Provides insights and analytics on contributors' activity.
+author: 'Sachin Chaurasiya <sachinchaurasiyachotey87@gmail.com>'
+
+branding:
+  icon: 'message-circle'
+  color: 'blue'
+
 inputs: {}
 outputs: {}
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: 'node16'
+  main: 'dist/index.js'
