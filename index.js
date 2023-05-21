@@ -1,4 +1,5 @@
 const github = require('@actions/github');
+const fs = require('fs');
 
 async function run() {
   try {
@@ -16,7 +17,9 @@ async function run() {
       repo: repoName,
     });
 
-    console.log('Contributors:');
+    let readmeContent = fs.readFileSync('README.md', 'utf8');
+    readmeContent += '\n\nContributor Analytics:\n\n';
+
     for (const contributor of contributors.data) {
       const username = contributor.login;
 
@@ -46,12 +49,32 @@ async function run() {
       });
       const codeCount = commits.data.length;
 
-      console.log(`${username}:`);
-      console.log(`Pull Requests: ${pullRequestCount}`);
-      console.log(`Issues Opened: ${issueCount}`);
-      console.log(`Code Contributions: ${codeCount}`);
-      console.log('------------------------------');
+      readmeContent += `Username: ${username}\n`;
+      readmeContent += `Pull Requests: ${pullRequestCount}\n`;
+      readmeContent += `Issues Opened: ${issueCount}\n`;
+      readmeContent += `Code Contributions: ${codeCount}\n`;
+      readmeContent += '------------------------------\n';
     }
+
+    fs.writeFileSync('README.md', readmeContent);
+
+    // Commit the changes
+    await octokit.rest.repos.createOrUpdateFileContents({
+      owner,
+      repo: repoName,
+      path: 'README.md',
+      message: 'Update contributor analytics',
+      content: Buffer.from(readmeContent).toString('base64'),
+      sha: repo.default_branch
+        ? (
+            await octokit.rest.repos.getContents({
+              owner,
+              repo: repoName,
+              path: 'README.md',
+            })
+          ).data.sha
+        : undefined,
+    });
   } catch (error) {
     console.error(error);
     process.exit(1);
