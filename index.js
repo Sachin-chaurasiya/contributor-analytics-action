@@ -67,7 +67,7 @@ async function run() {
       content: Buffer.from(readmeContent).toString('base64'),
       sha: repo.default_branch
         ? (
-            await octokit.rest.repos.getContents({
+            await octokit.rest.repos.getContent({
               owner,
               repo: repoName,
               path: 'README.md',
