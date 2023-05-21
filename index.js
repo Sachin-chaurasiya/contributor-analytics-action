@@ -56,25 +56,19 @@ async function run() {
       readmeContent += '------------------------------\n';
     }
 
-    fs.writeFileSync('README.md', readmeContent);
+    const branch = `update-contributor-analytics-${Date.now().toString()}`;
+    const baseBranch = repo.default_branch;
 
-    // Commit the changes
-    await octokit.rest.repos.createOrUpdateFileContents({
+    const pullRequestResponse = await octokit.rest.pulls.create({
       owner,
       repo: repoName,
-      path: 'README.md',
-      message: 'Update contributor analytics',
-      content: Buffer.from(readmeContent).toString('base64'),
-      sha: repo.default_branch
-        ? (
-            await octokit.rest.repos.getContent({
-              owner,
-              repo: repoName,
-              path: 'README.md',
-            })
-          ).data.sha
-        : undefined,
+      title: 'Update contributor analytics',
+      head: branch,
+      base: baseBranch,
+      body: 'This pull request updates the contributor analytics in the README file.',
     });
+
+    console.log(`Pull request created: ${pullRequestResponse.data.html_url}`);
   } catch (error) {
     console.error(error);
     process.exit(1);
